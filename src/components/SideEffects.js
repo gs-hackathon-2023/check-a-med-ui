@@ -1,47 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import Grid from "@/components/Grid";
 import axios from "axios";
 
 const SideEffects = ({ sideEffects }) => {
-  const customComponents = {
-    DropdownIndicator: () => null,
-  };
+  const [data, setData] = useState();
 
   const handleChange = async (selectedValue) => {
-    console.log(selectedValue);
     if (selectedValue) {
-      const result = await axios.get(
+      const { data } = await axios.get(
         `/api/side-effects/${selectedValue.value}`
       );
+      console.log(data.response);
+      setData(data.response);
     }
   };
-
-  const data = [
-    {
-      col1: "Hello",
-      col2: "World",
-    },
-    {
-      col1: "react-table",
-      col2: "rocks",
-    },
-    {
-      col1: "whatever",
-      col2: "you want",
-    },
-  ];
-
-  const headers = [
-    {
-      Header: "Column 1",
-      accessor: "col1", // accessor is the "key" in the data
-    },
-    {
-      Header: "Column 2",
-      accessor: "col2",
-    },
-  ];
 
   return (
     <div className={"flex items-center justify-center"}>
@@ -64,7 +37,7 @@ const SideEffects = ({ sideEffects }) => {
             onChange={handleChange}
           />
           <div className={"flex space-x-6 "}>
-            <Grid />
+            <Grid values={data} />
           </div>
         </div>
       </div>

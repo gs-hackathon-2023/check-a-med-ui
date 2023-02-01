@@ -23,7 +23,6 @@ const MedicineSelect = ({
         className={
           "bg-white flex h-3/6 w-8/12 items-center gap-x-10 justify-center rounded-2xl shadow-2xl"
         }
-
       >
         <Select
           isSearchable
