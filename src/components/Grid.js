@@ -1,21 +1,7 @@
 import { useTable } from "react-table";
 import { useMemo } from "react";
 
-const Grid = ({ values = [] }) => {
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Name",
-        accessor: "name", // accessor is the "key" in the data
-      },
-      {
-        Header: "Probability",
-        accessor: "probability",
-      },
-    ],
-    []
-  );
-
+const Grid = ({ values = [], columns = [] }) => {
   const data = useMemo(() => values, [values]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

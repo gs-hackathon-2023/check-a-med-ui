@@ -16,6 +16,17 @@ const SideEffects = ({ sideEffects }) => {
     }
   };
 
+  const headers = [
+    {
+      Header: "Name",
+      accessor: "name",
+    },
+    {
+      Header: "Probability",
+      accessor: "probability",
+    },
+  ];
+
   return (
     <div className={"flex items-center justify-center"}>
       <div
@@ -37,7 +48,7 @@ const SideEffects = ({ sideEffects }) => {
             onChange={handleChange}
           />
           <div className={"flex space-x-6 "}>
-            <Grid values={data} />
+            {data && <Grid values={data} columns={headers} />}
           </div>
         </div>
       </div>

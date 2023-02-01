@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import axios from "axios";
+import Grid from "@/components/Grid";
 
 const MedicineSelect = ({
   medicines,
@@ -15,28 +16,39 @@ const MedicineSelect = ({
     await axios.post("/api/medications", selectedValues);
   };
 
+  const headers = [
+    {
+      Header: "Medicines",
+      accessor: "name",
+    },
+    {
+      Header: "Restriction",
+      accessor: "description",
+    },
+  ];
+
   return (
-    <div
-      className={"col-span-2 flex justify-center items-center bg-indigo-300"}
-    >
+    <div className={"col-span-2 flex justify-center items-center"}>
       <div
         className={
-          "bg-white flex h-3/6 w-8/12 items-center gap-x-10 justify-center rounded-2xl shadow-2xl"
+          "bg-white flex h-5/6 w-8/12 items-center gap-x-10 justify-center rounded-2xl shadow-2xl"
         }
       >
-        <Select
-          isSearchable
-          placeholder={""}
-          closeMenuOnSelect={false}
-          menuPlacement="auto"
-          isMulti
-          options={medicines.map((medicine) => ({
-            value: medicine.id,
-            label: medicine.name,
-          }))}
-          className={"w-3/12"}
-          onChange={handleChange}
-        />
+        <Grid values={medicines} columns={headers} />
+        {/*<Select*/}
+        {/*  defaultValue={[medicines[0].name]}*/}
+        {/*  isSearchable*/}
+        {/*  placeholder={""}*/}
+        {/*  closeMenuOnSelect={false}*/}
+        {/*  menuPlacement="auto"*/}
+        {/*  isMulti*/}
+        {/*  options={medicines.map((medicine) => ({*/}
+        {/*    value: medicine.id,*/}
+        {/*    label: medicine.name,*/}
+        {/*  }))}*/}
+        {/*  className={"w-3/12"}*/}
+        {/*  onChange={handleChange}*/}
+        {/*/>*/}
         <div className={"flex space-x-6 "}>
           <label className={"flex items-center space-x-2"}>
             <span>Subscribe to articles</span>
