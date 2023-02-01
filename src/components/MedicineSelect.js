@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "react-select";
 import axios from "axios";
 
-const MedicineSelect = ({ medicines }) => {
-  const [selectedValues, setSelectedValues] = useState([]);
-
+const MedicineSelect = ({
+  medicines,
+  selectedValues,
+  setSelectedMedicines,
+}) => {
   const handleChange = (selectedOption) => {
-    setSelectedValues(selectedOption);
+    setSelectedMedicines(selectedOption);
   };
 
   const submitMedications = async () => {
@@ -14,8 +16,14 @@ const MedicineSelect = ({ medicines }) => {
   };
 
   return (
-    <div className={"col-span-2 shadow-2xl bg-indigo-300 gap-x-10"}>
-      <div className={"flex space-x-6 p-4"}>
+    <div
+      className={"col-span-2 flex justify-center items-center bg-indigo-300"}
+    >
+      <div
+        className={
+          "bg-white flex h-3/6 w-8/12 items-center gap-x-10 justify-center rounded-2xl shadow-2xl"
+        }
+      >
         <Select
           isSearchable
           placeholder={""}
@@ -29,6 +37,16 @@ const MedicineSelect = ({ medicines }) => {
           className={"w-3/12"}
           onChange={handleChange}
         />
+        <div className={"flex space-x-6 "}>
+          <label className={"flex items-center space-x-2"}>
+            <span>Subscribe to articles</span>
+            <input className={"h-6 w-6"} type={"checkbox"} />
+          </label>
+          <label className={"flex items-center space-x-2"}>
+            <span>Subscribe to warnings</span>
+            <input className={"h-6 w-6"} type={"checkbox"} />
+          </label>
+        </div>
         <button
           disabled={selectedValues.length < 1}
           onClick={submitMedications}
