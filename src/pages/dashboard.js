@@ -1,32 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import MedicineSelect from "@/components/MedicineSelect";
 import SideEffects from "@/components/SideEffects";
 import Conflicts from "@/components/Conflicts";
+import {
+  getConflictsByUserId,
+  getMedicationsByUserID,
+  getSideEffects,
+} from "@/medications-api";
 
-export default function Dashboard({ fakeMedicines }) {
+export default function Dashboard({ medicines, sideEffects, conflicts }) {
+  console.log(sideEffects);
+  console.log(conflicts);
+  const [selectedMedicines, setSelectedMedicines] = useState([]);
   return (
     <div className={"h-screen grid grid-cols-2"}>
-      <MedicineSelect medicines={fakeMedicines} />
-      <SideEffects />
+      <MedicineSelect
+        selectedValues={selectedMedicines}
+        medicines={medicines}
+        setSelectedMedicines={setSelectedMedicines}
+      />
+      <SideEffects sideEffects={sideEffects} />
       <Conflicts />
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
-  const fakeMedicines = [
-    { id: 1, name: "Paracetamol" },
-    { id: 2, name: "Aspirin" },
-    { id: 3, name: "Ibuprofen" },
-    { id: 4, name: "Amoxicillin" },
-    { id: 5, name: "Metformin" },
-    { id: 6, name: "Lisinopril" },
-    { id: 7, name: "Atorvastatin" },
-    { id: 8, name: "Metoprolol" },
-  ];
+  const medicines = await getMedicationsByUserID();
+  const sideEffects = await getSideEffects();
+  const conflicts = await getConflictsByUserId("12344");
   return {
     props: {
-      fakeMedicines,
+      medicines,
+      sideEffects,
+      conflicts,
     },
   };
 }
